@@ -29,7 +29,7 @@ async function start(){
     await delay(0.8)
     setInformationText(tr('DOING SOME HACKERMANS STUFF...'))
     await delay(1)
-    setInformationText(tr('ACCESS CODE FLAGGED; REQUIRES HUMAN CAPTCHA INPUT..'))
+    setInformationText(tr('mangat'))
     await delay(0.8)
 
     // hide text and show squares
