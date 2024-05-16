@@ -35,8 +35,8 @@ export const COLORS = {
 // functions that return answers from PuzzleData class
 const QUESTIONS = {
     'background color' : (d) => d.colors['background'],
-    'color text background color' : (d) => d.colors['colortext'],
-    'shape text background color' : (d) => d.colors['shapetext'],
+    // 'color text background color' : (d) => d.colors['colortext'],
+    // 'shape text background color' : (d) => d.colors['shapetext'],
     'number color' : (d) => d.colors['number'],
     'shape color' : (d) => d.colors['shape'],
     'color text' : (d) => d.text[0],
