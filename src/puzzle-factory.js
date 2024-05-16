@@ -37,6 +37,7 @@ const QUESTIONS = {
     'background color' : (d) => d.colors['background'],
     // 'color text background color' : (d) => d.colors['colortext'],
     // 'shape text background color' : (d) => d.colors['shapetext'],
+    'text background color' : (d) => d.colors['colortext'],
     'number color' : (d) => d.colors['number'],
     'shape color' : (d) => d.colors['shape'],
     'color text' : (d) => d.text[0],
@@ -62,25 +63,34 @@ export function generateRandomPuzzle(){
     let topText = sample(Object.keys(COLORS))
     let bottomText = sample(SHAPES)
 
-    const colors = COLORABLE.reduce((obj, color) => {obj[color] = sample(Object.keys(COLORS)); return obj}, {})
+    const textColor = sample(Object.keys(COLORS)); // Memilih warna teks untuk colortext dan shapetext
+    const colors = COLORABLE.reduce((obj, color) => {
+        if (color === 'colortext' || color === 'shapetext') {
+            obj[color] = textColor; // Gunakan warna teks yang sama untuk colortext dan shapetext
+        } else {
+            obj[color] = sample(Object.keys(COLORS));
+        }
+        return obj;
+    }, {});
 
-    // ensure color and shape text don't blend with background
-    while(['colortext', 'shapetext'].map(i => colors[i]).includes(colors['background']))
-        colors['background'] = sample(Object.keys(COLORS))
+    // Pastikan warna teks tidak menyatu dengan latar belakang
+    while (['colortext', 'shapetext'].map(i => colors[i]).includes(colors['background']))
+        colors['background'] = sample(Object.keys(COLORS));
 
-    // ensure nothing blends with shape
-    while(['background', 'colortext', 'shapetext', 'number'].map(i => colors[i]).includes(colors['shape'])){
-        colors['shape'] = sample(Object.keys(COLORS))
+    // Pastikan tidak ada yang menyatu dengan bentuk
+    while (['background', 'colortext', 'shapetext', 'number'].map(i => colors[i]).includes(colors['shape'])){
+        colors['shape'] = sample(Object.keys(COLORS));
     }
 
-    // convert to hex color values
-    Object.keys(colors).forEach(k => colors[k] = COLORS[colors[k]])
+    // Konversi ke nilai warna heksadesimal
+    Object.keys(colors).forEach(k => colors[k] = COLORS[colors[k]]);
 
-    topText = trColors(topText)
-    bottomText = trShapes(bottomText)
+    topText = trColors(topText);
+    bottomText = trShapes(bottomText);
 
-    return new PuzzleData(shape, number, [topText, bottomText], colors)
+    return new PuzzleData(shape, number, [topText, bottomText], colors);
 }
+
 
 
 export function generateQuestionAndAnswer(nums, puzzles){

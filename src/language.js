@@ -5,8 +5,9 @@ export default
         SHAPES : ["square", "triangle", "rectangle", "circle"],
         QUESTIONS : [
             'background color',
-            'color text background color',
-            'shape text background color',
+            // 'color text background color',
+            // 'shape text background color',
+            'text background color',
             'number color',
             'shape color',
             'color text',
